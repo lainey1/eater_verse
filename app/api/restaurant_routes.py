@@ -7,7 +7,7 @@ restaurant_routes = Blueprint('restaurants', __name__)
 @restaurant_routes.route('/')
 def restaurants():
     """
-    Query for all restaurants and returns them in a list of restaurant dictionaries
+    Query for all restaurants and returns them in a list of restaurant dictionaries.
     """
     restaurants = Restaurant.query.all()
     return {'restaurants': [restaurant.to_dict() for restaurant in restaurants]}
@@ -15,7 +15,7 @@ def restaurants():
 @restaurant_routes.route('/owner/<int:owner_id>')
 def restaurants_by_owner(owner_id):
     """
-    Query restaurants by owner ID and returns them in as a dictionary
+    Query restaurants by owner ID. Returns list of dictionaries, where each dictionary represents a Restaurant.
     """
     restaurants_by_owner = Restaurant.query.filter_by(owner_id=owner_id).all()
 
