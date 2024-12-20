@@ -12,6 +12,18 @@ def restaurants():
     restaurants = Restaurant.query.all()
     return {'restaurants': [restaurant.to_dict() for restaurant in restaurants]}
 
+@restaurant_routes.route('/owner/<int:owner_id>')
+def restaurants_by_owner(owner_id):
+    """
+    Query restaurants by owner ID and returns them in as a dictionary
+    """
+    restaurants_by_owner = Restaurant.query.filter_by(owner_id=owner_id).all()
+
+    if not restaurants_by_owner:
+        return {'error': f'No restaurants with an owner by ID {owner_id} found.'}, 404
+    else:
+        return {'restaurants': [restaurant.to_dict() for restaurant in restaurants_by_owner]}
+
 
 @restaurant_routes.route('/<int:id>', methods=['GET', 'DELETE'])
 def restaurant(id):
