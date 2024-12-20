@@ -1,5 +1,5 @@
-from flask import Blueprint, jsonify
-from app.models import Restaurant
+from flask import Blueprint, jsonify, request
+from app.models import Restaurant, db
 
 restaurant_routes = Blueprint('restaurants', __name__)
 
@@ -13,10 +13,22 @@ def restaurants():
     return {'restaurants': [restaurant.to_dict() for restaurant in restaurants]}
 
 
-@restaurant_routes.route('/<int:id>')
+@restaurant_routes.route('/<int:id>', methods=['GET', 'DELETE'])
 def restaurant(id):
     """
-    Query for a restaurant by id and returns that restaurant in a dictionary
+    Handle GET and DELETE requests for a restaurant by ID.
+    - GET: Query for a restaurant by ID and return it as a dictionary.
+    - DELETE: Delete a restaurant by ID from the database.
     """
     restaurant = Restaurant.query.get(id)
-    return restaurant.to_dict()
+
+    if not restaurant:
+        return {'error': f'Restaurant with ID {id} not found.'}, 404
+
+    if request.method == 'GET':
+        return restaurant.to_dict(), 200
+
+    if request.method == 'DELETE':
+        db.session.delete(restaurant)
+        db.session.commit()
+        return {'message': f'Restaurant with ID {id} deleted successfully.'}, 200
