@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, redirect, render_template, flash
 from app.forms import RestaurantForm
 from app.models import Restaurant, db
-
+from flask_login import login_required
 
 
 restaurant_routes = Blueprint('restaurants', __name__)
@@ -49,6 +49,7 @@ def restaurant(id):
         return {'message': f'Restaurant with ID {id} deleted successfully.'}, 200
 
 @restaurant_routes.route('/new', methods=['POST'])
+@login_required
 def create_restaurant():
     """
     Query to add a restaurant to the DB

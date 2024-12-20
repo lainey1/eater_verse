@@ -1,13 +1,13 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SelectField
-from wtforms.validators import InputRequired, ValidationError, Optional, Length
+from wtforms.validators import InputRequired, Optional, Length,ValidationError
 
 
 
 def email_validator(form,field):
     email = field.data
-    if not email.endswith('@something.com'):
-        raise ValidationError('Email must be from something.com domain.')
+    # if not email.endswith('@something.com'):
+    #     raise ValidationError('Email must be from something.com domain.')
 
 
 class RestaurantForm(FlaskForm):
@@ -20,7 +20,7 @@ class RestaurantForm(FlaskForm):
     email = StringField('Email', validators=[email_validator, Optional(), Length(max=255)])
     website = StringField('Website', validators=[Optional(), Length(max=255)])
     cuisine = StringField('Cuisine', validators=[Optional(), Length(max=50)])
-    price_point = SelectField('Price Point', choices=[('$', 'Cheap'), ('$$', 'Moderate'), ('$$$', 'Expensive')], validators=[Optional()])
+    price_point = SelectField('Price Point', choices=[('1', '$1-$10'), ('2', '$11-$30'), ('3', '$31-$60'), ('4', '$61-$100'), '5', 'Over $100'], validators=[Optional()])
     description = TextAreaField('Description', validators=[Optional(), Length(max=500)])
     # Days of the week with dropdown options for hours
     monday_hours = SelectField('Monday Hours', choices=[('Closed', 'Closed'), ('9am - 5pm', '9am - 5pm'), ('10am - 6pm', '10am - 6pm'), ('12pm - 8pm', '12pm - 8pm'), ('24hrs', '24hrs')], default='Closed')
