@@ -1,5 +1,8 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, redirect, render_template, flash
+from app.forms import RestaurantForm
 from app.models import Restaurant, db
+
+
 
 restaurant_routes = Blueprint('restaurants', __name__)
 
@@ -44,3 +47,46 @@ def restaurant(id):
         db.session.delete(restaurant)
         db.session.commit()
         return {'message': f'Restaurant with ID {id} deleted successfully.'}, 200
+
+@restaurant_routes.route('/new', methods=['POST'])
+def create_restaurant():
+    """
+    Query to add a restaurant to the DB
+    """
+    form = RestaurantForm()
+
+    if form.validate_on_submit():
+        # Create new restaurant
+        new_restaurant = restaurants(
+            name=form.name.data,
+            address=form.address.data,
+            city=form.city.data,
+            state=form.state.data,
+            country=form.country.data,
+            phone_number=form.phone_number.data,
+            email=form.email.data,
+            website=form.website.data,
+            cuisine=form.cuisine.data,
+            price_point=form.price_point.data,
+            description=form.description.data,
+            monday_hours=form.monday_hours.data,
+            tuesday_hours=form.tuesday_hours.data,
+            wednesday_hours=form.wednesday_hours.data,
+            thursday_hours=form.thursday_hours.data,
+            friday_hours=form.friday_hours.data,
+            saturday_hours=form.saturday_hours.data,
+            sunday_hours=form.sunday_hours.data
+        )
+
+        db.session.add(new_restaurant)
+        db.session.commit()
+        return jsonify({
+            'message': 'Restaurant added successfully!',
+            'restaurant': new_restaurant.to_dict()
+        }), 201
+
+    # If form validation fails
+    return jsonify({
+        'message': 'Bad Data, please check your inputs',
+        'errors': form.errors
+    }), 400

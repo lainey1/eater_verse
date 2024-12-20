@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create a New Restaurant</title>
+</head>
+<body>
+    <h1>Add a New Restaurant</h1>
+    
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        
+        <label for="name">Name:</label>
+        {{ form.name() }}<br>
+
+        <label for="address">Address:</label>
+        {{ form.address() }}<br>
+
+        <label for="city">City:</label>
+        {{ form.city() }}<br>
+
+        <label for="state">State:</label>
+        {{ form.state() }}<br>
+
+        <label for="country">Country:</label>
+        {{ form.country() }}<br>
+
+        <label for="phone_number">Phone Number:</label>
+        {{ form.phone_number() }}<br>
+
+        <label for="email">Email:</label>
+        {{ form.email() }}<br>
+
+        <label for="website">Website:</label>
+        {{ form.website() }}<br>
+
+        <label for="cuisine">Cuisine:</label>
+        {{ form.cuisine() }}<br>
+
+        <label for="price_point">Price Point:</label>
+        {{ form.price_point() }}<br>
+
+        <label for="description">Description:</label>
+        {{ form.description() }}<br>
+
+        <label for="monday_hours">Monday Hours:</label>
+        {{ form.monday_hours() }}<br>
+
+        <label for="tuesday_hours">Tuesday Hours:</label>
+        {{ form.tuesday_hours() }}<br>
+
+        <label for="wednesday_hours">Wednesday Hours:</label>
+        {{ form.wednesday_hours() }}<br>
+
+        <label for="thursday_hours">Thursday Hours:</label>
+        {{ form.thursday_hours() }}<br>
+
+        <label for="friday_hours">Friday Hours:</label>
+        {{ form.friday_hours() }}<br>
+
+        <label for="saturday_hours">Saturday Hours:</label>
+        {{ form.saturday_hours() }}<br>
+
+        <label for="sunday_hours">Sunday Hours:</label>
+        {{ form.sunday_hours() }}<br>
+
+        <button type="submit">Add Restaurant</button>
+    </form>
+</body>
+</html>
