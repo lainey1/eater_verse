@@ -27,7 +27,7 @@ class Restaurant(db.Model):
             'id': self.id,
             'owner_id': self.owner_id,
             'name': self.name,
-            'address': self.address,
+            'address': self.address,  # Make sure to include address in the dict
             'city': self.city,
             'state': self.state,
             'country': self.country,
