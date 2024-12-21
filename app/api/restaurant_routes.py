@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, redirect, render_template, flash
+from flask import Blueprint, jsonify, request
 from app.forms import RestaurantForm
 from app.models import Restaurant, db
 from flask_login import login_required
@@ -20,7 +20,10 @@ def restaurants_by_owner(owner_id):
     """
     Query restaurants by owner ID. Returns list of dictionaries, where each dictionary represents a Restaurant.
     """
+
     restaurants_by_owner = Restaurant.query.filter_by(owner_id=owner_id).all()
+
+    print(restaurants_by_owner)
 
     if not restaurants_by_owner:
         return {'error': f'No restaurants with an owner by ID {owner_id} found.'}, 404
